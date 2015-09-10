@@ -1,0 +1,6 @@
+<% @tours.each do |tour| %>
+<div class="post_wrapper">
+	<h2 class="title"><%= link_to tour.judul, tour %></h2>
+	<p class="date"><%= tour.created_at.strftime("%d %B %Y") %> 
+</div>
+<% end %>

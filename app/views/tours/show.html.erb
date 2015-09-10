@@ -1,0 +1,29 @@
+<div id="post_content">
+<h1 class="title">
+  <%= @tour.judul %>
+</h1>
+
+<p class="date_and_author">
+  Published on <%= time_ago_in_words(@tour.created_at) %> ago - <a href='#comments'><%= @tour.reviews.count %> Review </a>
+  <% if user_signed_in? %>
+  <%= link_to 'Edit', edit_tour_path(@tour) %> |
+  <%= link_to 'Delete', tour_path(@tour), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+</p>
+<br>
+<p class="body">
+  <%= image_tag @tour.gambar_url, class: "img-post" %><br>
+  <%= @tour.latitude %><br>
+	<%= @tour.longitude %><br>
+	<%= @tour.konten %>
+</p>
+<div id="comments">
+  <h2>Review Pengunjung</h2>
+    <%= render @tour.reviews %>
+  <% if user_signed_in? %>
+    <%= render "reviews/form" %>
+  <% else %>
+    <p><%= link_to('Login', new_user_session_path)  %>  or <%= link_to('Registrasi', new_user_registration_path) %> untuk memberi review</p>
+  <% end %>	
+</div>
+</div>

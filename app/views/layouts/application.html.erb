@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sistem Informasi Pariwisata DIY</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="sidebar">
+    <div id="logo">
+      <%= link_to root_path do %>
+      <%= image_tag "logo.svg" %>
+      <% end %>
+    </div>
+    <ul>
+      <li class="category"><%= link_to "Home", root_path %></li>
+      <li class="category"><%= link_to "Peta Wisata", peta_path %></li>
+    </ul>
+ 
+    <ul>
+      <li class="category"><%= link_to "Semua", root_path %></li>
+      <% Category.all.each do |category| %>
+      <li class="category"><%= link_to category.name, tours_path(category: category.name) %></li>
+      <% end %>
+    </ul>
+    <p class="sign_in">
+      <ul>
+        <% if user_signed_in? %>
+        <li class="category">
+          <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+        </li>
+        <% else %>
+        <li class="category">
+          <%= link_to('Login', new_user_session_path)  %>  
+        </li>
+        <% end %>
+      </ul>
+    </p>
+  </div>
+
+  <div id="main_content">
+    <div id="main_content header">
+      <div class="buttons">
+        <% if user_signed_in? %>
+        <%= link_to "New Post", new_tour_path, class: "button" %>
+        <% end %>
+      </div>
+    </div>
+    <% flash.each do |name, msg| %>
+    <%= content_tag(:div, msg, class: "alert") %>
+    <% end %>
+    <%= yield %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+<%= form_for([@tour, @tour.reviews.build]) do |f| %>
+<%= f.label :review %><br>
+<%= f.text_area :body %><br>
+<%= f.submit %>
+<% end %>
